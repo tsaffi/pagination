@@ -2,17 +2,17 @@
     <!-- Items per page selection -->
     <div>
         <label for="perPage">Items per page:</label>
-        <select wire:model="perPage" id="perPage">
+        <select wire:model.change="perPage" id="perPage">
             @foreach($options as $option)
                 <option value="{{ $option }}">{{ $option }}</option>
             @endforeach
         </select>
 
         <label>Search</label>
-        <input wire:model="search" type="search" placeholder="Search by name...">
+        <input wire:model.change="search" type="search" placeholder="Search by name...">
 
         <label>Sort:</label>
-        <select wire:model="sort" id="sort">
+        <select wire:model.change="sort" id="sort">
             @foreach($sortOptions as $option)
                 <option value="{{ $option }}">{{ $option }}</option>
             @endforeach
