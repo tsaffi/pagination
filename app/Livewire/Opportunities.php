@@ -25,11 +25,12 @@ class Opportunities extends Component
 
     public function render()
     {
-        $items = Cache::remember('items', 1, function () {
+        $items = Cache::remember('items', 1, function () { // Cache the result for 1 second
             return Item::select('id', 'name')
                 ->when($this->search, fn($query) => $query->where('name', 'like', "%{$this->search}%"))
                 ->when($this->sort && $this->sort == 'ascending', fn($query) => $query->orderBy('name'))
                 ->when($this->sort && $this->sort == 'descending', fn($query) => $query->orderByDesc('name'))
+                ->when(!$this->sort, fn($query) => $query->orderBy('id'))
                 ->paginate($this->perPage);
         });
 

@@ -13,6 +13,7 @@
 
         <label>Sort:</label>
         <select wire:model.change="sort" id="sort">
+            <option value="">Please Select</option>
             @foreach($sortOptions as $option)
                 <option value="{{ $option }}">{{ $option }}</option>
             @endforeach
