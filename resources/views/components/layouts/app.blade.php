@@ -7,7 +7,7 @@
         <!-- Stylesheet -->
         @vite('resources/css/app.css')
 
-        <title>{{ $title ?? 'Page Title' }}</title>
+        <title>{{ $title ?? config('app.name') }}</title>
     </head>
     <body>
         {{ $slot }}
