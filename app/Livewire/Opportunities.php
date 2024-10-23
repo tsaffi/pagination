@@ -25,7 +25,9 @@ class Opportunities extends Component
 
     public function render()
     {
-        $items = Cache::remember('items', 1, function () { // Cache the result for 1 second
+        $cacheKey = $this->perPage.$this->sort.$this->search; // It should be unique based on the query params
+
+        $items = Cache::remember('items-'.$cacheKey, 3600, function () { // Cache the result for 1 hour. Just for illustration
             return Item::select('id', 'name')
                 ->when($this->search, fn($query) => $query->where('name', 'like', "%{$this->search}%"))
                 ->when($this->sort && $this->sort == 'ascending', fn($query) => $query->orderBy('name'))
