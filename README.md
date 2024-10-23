@@ -6,7 +6,7 @@ Pagination is a project that implements the display of paginated items with the 
 
 List of server requirements to have the project running
 
-`PHP 8.2, MySQL 8.1.0`
+`PHP 8.2, MySQL 8.1.0, Web Server (eg Nginx)`
 
 ## Installation and Setup
 
