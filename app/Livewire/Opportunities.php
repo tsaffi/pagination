@@ -11,12 +11,14 @@ class Opportunities extends Component
 {
     use WithPagination;
 
+    // #[Url(history: true)]
     public $sort = null;
     public $search = null;
     public $perPage = 20; // Default number of items per page
     public $options = [20, 50, 100, 250]; // Options for items per page
     public $sortOptions = ['ascending', 'descending']; // Options for sorting
     protected $queryString = ['perPage', 'sort', 'search']; // Keep perPage, sort and search url params in the URL
+    public $page = null;
 
     public function updatingPerPage()
     {
@@ -25,7 +27,15 @@ class Opportunities extends Component
 
     public function render()
     {
-        $cacheKey = $this->perPage.$this->sort.$this->search; // It should be unique based on the query params
+        $page = isset(request()->components) && isset(request()->components[0]['calls']) // Not optimal but a quick and temporal workaround to get the page param
+            ?
+                isset(request()->components[0]['calls'][0]) && isset(request()->components[0]['calls'][0]['params'])
+                    ? request()->components[0]['calls'][0]['params'][0]
+                    : null
+            :   null;
+
+        $cacheKey = $page.$this->perPage.$this->sort.$this->search; // It should be unique based on the query params
+        \Log::debug($cacheKey);
 
         $items = Cache::remember('items-'.$cacheKey, 3600, function () { // Cache the result for 1 hour. Just for illustration
             return Item::select('id', 'name')
