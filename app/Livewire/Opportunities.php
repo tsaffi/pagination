@@ -11,7 +11,6 @@ class Opportunities extends Component
 {
     use WithPagination;
 
-    // #[Url(history: true)]
     public $sort = null;
     public $search = null;
     public $perPage = 20; // Default number of items per page
