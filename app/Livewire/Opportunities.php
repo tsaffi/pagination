@@ -35,7 +35,6 @@ class Opportunities extends Component
             :   null;
 
         $cacheKey = $page.$this->perPage.$this->sort.$this->search; // It should be unique based on the query params
-        \Log::debug($cacheKey);
 
         $items = Cache::remember('items-'.$cacheKey, 3600, function () { // Cache the result for 1 hour. Just for illustration
             return Item::select('id', 'name')
